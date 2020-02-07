@@ -4,12 +4,21 @@ window = Tk()
 
 window.title("Simple Calculator")
 window.configure(background="#333333")
+dotClicked = False
 
 
 def buttonClick(number):
     fieldValue = entry.get()
     entry.delete(0, END)
     entry.insert(0, fieldValue + number)
+
+
+def buttonDot():
+    global dotClicked
+    if not dotClicked:
+        fieldValue = entry.get()
+        entry.delete(0, END)
+        entry.insert(0, fieldValue + ".")
 
 
 def buttonCancel():
@@ -49,16 +58,16 @@ def buttonEqual():
     entry.delete(0, END)
 
     if sign == "+":
-        entry.insert(0, int(first_number) + int(secondNumber))
+        entry.insert(0, float(first_number) + float(secondNumber))
 
     if sign == "-":
-        entry.insert(0, int(first_number) - int(secondNumber))
+        entry.insert(0, float(first_number) - float(secondNumber))
 
     if sign == "*":
-        entry.insert(0, int(first_number) * int(secondNumber))
+        entry.insert(0, float(first_number) * float(secondNumber))
 
     if sign == "/":
-        entry.insert(0, int(int(first_number) / int(secondNumber)))
+        entry.insert(0, float(float(first_number) / float(secondNumber)))
 
 
 entry = Entry(window)
@@ -175,5 +184,12 @@ buttonCancel = Button(window,
                       text="C",
                       pady=10)
 buttonCancel.grid(row=6, column=0)
+
+buttonDot = Button(window,
+                   command=buttonDot,
+                   highlightbackground="#333333",
+                   text=".",
+                   pady=10)
+buttonDot.grid(row=6, column=1)
 
 window.mainloop()
